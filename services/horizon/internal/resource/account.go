@@ -73,6 +73,31 @@ func (this *Account) Populate(
 	return
 }
 
+// PopulateBasic fills out the resource's fields only with data from core.Account
+func (this *Account) PopulateBasic(
+	ctx context.Context,
+	ca core.Account,
+) (err error) {
+	this.ID = ca.Accountid
+	this.AccountID = ca.Accountid
+	this.Sequence = ca.Seqnum
+	this.SubentryCount = ca.Numsubentries
+	this.InflationDestination = ca.Inflationdest.String
+	this.HomeDomain = ca.HomeDomain.String
+
+	this.Flags.Populate(ca)
+	this.Thresholds.Populate(ca)
+
+	// populate native balance
+	this.Balances = make([]Balance, 1)
+	err = this.Balances[0].PopulateNative(ca.Balance)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
 // MustGetData returns decoded value for a given key. If the key does
 // not exist, empty slice will be returned. If there is an error
 // decoding a value, it will panic.
