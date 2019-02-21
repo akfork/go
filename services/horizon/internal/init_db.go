@@ -13,10 +13,9 @@ func initHorizonDb(app *App) {
 		log.Panic(err)
 	}
 
-	// Make sure MaxIdleConns is equal MaxOpenConns. In case of high variance
-	// in number of requests closing and opening connections may slow down Horizon.
-	session.DB.SetMaxIdleConns(app.config.MaxDBConnections)
-	session.DB.SetMaxOpenConns(app.config.MaxDBConnections)
+	session.DB.SetMaxIdleConns(app.config.HorizonDBMaxIdleConnections)
+	session.DB.SetMaxOpenConns(app.config.HorizonDBMaxOpenConnections)
+
 	app.historyQ = &history.Q{session}
 }
 
@@ -26,10 +25,9 @@ func initCoreDb(app *App) {
 		log.Panic(err)
 	}
 
-	// Make sure MaxIdleConns is equal MaxOpenConns. In case of high variance
-	// in number of requests closing and opening connections may slow down Horizon.
-	session.DB.SetMaxIdleConns(app.config.MaxDBConnections)
-	session.DB.SetMaxOpenConns(app.config.MaxDBConnections)
+	session.DB.SetMaxIdleConns(app.config.CoreDBMaxIdleConnections)
+	session.DB.SetMaxOpenConns(app.config.CoreDBMaxOpenConnections)
+
 	app.coreQ = &core.Q{session}
 }
 
