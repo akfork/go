@@ -22,6 +22,7 @@ func initIngester(app *App) {
 		app.HorizonSession(nil),
 		ingest.Config{
 			EnableAssetStats: app.config.EnableAssetStats,
+			CursorName:       app.config.CursorName,
 		},
 	)
 

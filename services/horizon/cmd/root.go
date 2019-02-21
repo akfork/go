@@ -223,6 +223,14 @@ var configOpts = []*support.ConfigOption{
 		Usage:       "causes this horizon process to ingest data from stellar-core into horizon's db",
 	},
 	&support.ConfigOption{
+		Name:        "cursor-name",
+		EnvVar:      "CURSOR_NAME",
+		ConfigKey:   &config.CursorName,
+		OptType:     types.String,
+		FlagDefault: "HORIZON",
+		Usage:       "ingestor cursor used by horizon to ingest from stellar core. must be unique for each horizon instance ingesting from that core instance.",
+	},
+	&support.ConfigOption{
 		Name:        "history-retention-count",
 		ConfigKey:   &config.HistoryRetentionCount,
 		OptType:     types.Uint,

@@ -80,6 +80,9 @@ func sys(tt *test.T, enableAssetStats bool) *System {
 		"",
 		tt.CoreSession(),
 		tt.HorizonSession(),
-		Config{EnableAssetStats: enableAssetStats},
+		Config{
+			EnableAssetStats: enableAssetStats,
+			CursorName:       "HORIZON",
+		},
 	)
 }
